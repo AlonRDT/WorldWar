@@ -308,6 +308,7 @@
 -r:"D:/Programs/Unity/2021.1.6f1/Editor/Data/PlaybackEngines/WebGLSupport/UnityEditor.WebGL.Extensions.dll"
 -r:"D:/Programs/Unity/2021.1.6f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll"
 -r:"D:/Projects/Draft/Draft/Library/PackageCache/com.unity.ext.nunit@1.0.6/net35/unity-custom/nunit.framework.dll"
+-r:"D:/Projects/Draft/Draft/Library/PackageCache/com.unity.nuget.mono-cecil@1.10.1-preview.1/Mono.Cecil.dll"
 -r:"Library/Bee/artifacts/1900b0aE.dag/Unity.Notifications.Android.ref.dll"
 -r:"Library/Bee/artifacts/1900b0aE.dag/Unity.Notifications.iOS.ref.dll"
 -r:"Library/Bee/artifacts/1900b0aE.dag/UnityEditor.TestRunner.ref.dll"

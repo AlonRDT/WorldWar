@@ -4,61 +4,65 @@ using UnityEngine;
 
 public abstract class Button : MonoBehaviour
 {
+    private float m_MinimumLongPressTime;
+
+    private float m_DisengageDistance;
+
+    private float m_PressTime;
+
+    protected bool m_FingerSlidOffButton;
+
+    private Vector3 m_PressLocation;
     [SerializeField]
-    public GameObject thisObject;
-
-    [SerializeField]
-    private float minimumLongPressTime;
-
-    private float pressTime;
-
-    private bool fingerSlidOffButton;
-
-    private bool lastUpdateFingerSlidOffButton;
+    public int UniqueID { get; set; }
 
 
     public void Update()
     {
-        pressTime += Time.deltaTime;
-        if (fingerSlidOffButton && !lastUpdateFingerSlidOffButton)
-        {
-            disengaged();
-        }
-        lastUpdateFingerSlidOffButton = fingerSlidOffButton;
+        m_PressTime += Time.deltaTime;
 
-        if (fingerSlidOffButton)
+        if (m_FingerSlidOffButton)
         {
             updateWhileDisengaged();
         }
         else
         {
-            updateWhileEngaged();
+            if (isDisengage())
+            {
+                disengaged();
+            }
+            else
+            {
+                updateWhileEngaged();
+            }
         }
     }
 
     public void Start()
     {
         this.enabled = false;
-        minimumLongPressTime = 0.3f;
+        m_MinimumLongPressTime = 0.2f;
+        m_DisengageDistance = 1;
     }
 
     public void Down()
     {
-        pressTime = 0f;
-        fingerSlidOffButton = false;
-        lastUpdateFingerSlidOffButton = false;
+        m_PressTime = 0f;
+        m_PressLocation = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        m_FingerSlidOffButton = false;
         this.enabled = true;
+        GetComponent<BoxCollider2D>().enabled = false;
         targetStart();
     }
     public void Up(bool activateClick)
     {
         this.enabled = false;
+        GetComponent<BoxCollider2D>().enabled = true;
         targetEnd();
 
         if (activateClick)
         {
-            Debug.Log(minimumLongPressTime);
-            if (pressTime >= minimumLongPressTime)
+            if (m_PressTime >= m_MinimumLongPressTime)
             {
                 longClick();
             }
@@ -67,6 +71,27 @@ public abstract class Button : MonoBehaviour
                 shortClick();
             }
         }
+    }
+
+    private bool isDisengage()
+    {
+        bool result;
+
+        if (m_FingerSlidOffButton)
+        {
+            result = false;
+        }
+        else if (Mathf.Abs((m_PressLocation - Camera.main.ScreenToWorldPoint(Input.mousePosition)).magnitude) > m_DisengageDistance)
+        {
+            result = true;
+            m_FingerSlidOffButton = true;
+        }
+        else
+        {
+            result = false;
+        }
+
+        return result;
     }
 
     protected abstract void targetStart();

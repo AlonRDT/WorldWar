@@ -19,7 +19,8 @@ public class PlayerInput : MonoBehaviour
                 currentButton = null;
             }
 
-            RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), -Vector2.up);
+
+            RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), -Vector2.up, 0);
             if (hit.collider != null)
             {
                 Button button = hit.transform.GetComponent<Button>();

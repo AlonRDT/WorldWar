@@ -5,16 +5,16 @@ m_ProjectFiles:
     m_ContentTrackingEnabled: 1
     m_ModificationDate:
       serializedVersion: 2
-      ticks: 637563338738493069
-    m_Hash: 3496939460
+      ticks: 637567542191766803
+    m_Hash: 1358868184
   m_LockFileStatus:
     m_FilePath: D:/Projects/Draft/Draft/Packages/packages-lock.json
     m_PathExists: 1
     m_ContentTrackingEnabled: 1
     m_ModificationDate:
       serializedVersion: 2
-      ticks: 637563339506698789
-    m_Hash: 1227400153
+      ticks: 637567542192676252
+    m_Hash: 2787293116
 m_EmbeddedPackageManifests:
   m_ManifestsStatus: {}
 m_LocalPackages:
@@ -101,9 +101,11 @@ m_ResolvedPackages:
     - 6.0.0-pre.1
     - 6.0.0-pre.2
     - 6.0.1
+    - 6.0.3
     compatible:
     - 6.0.1
-    verified: 6.0.1
+    - 6.0.3
+    verified: 6.0.3
   dependencies:
   - name: com.unity.2d.common
     version: 5.0.0
@@ -294,9 +296,11 @@ m_ResolvedPackages:
     - 5.0.0-pre.1
     - 5.0.0-pre.2
     - 5.0.1
+    - 5.0.3
     compatible:
     - 5.0.1
-    verified: 5.0.1
+    - 5.0.3
+    verified: 5.0.3
   dependencies:
   - name: com.unity.2d.common
     version: 5.0.0
@@ -804,9 +808,11 @@ m_ResolvedPackages:
     - 2.0.3
     - 2.0.5
     - 2.0.7
+    - 2.0.8
     compatible:
     - 2.0.7
-    verified: 2.0.7
+    - 2.0.8
+    verified: 2.0.8
   dependencies:
   - name: com.unity.test-framework
     version: 1.1.9
@@ -1062,6 +1068,62 @@ m_ResolvedPackages:
     path: 
   unityLifecycle:
     version: 1.3.2
+    nextVersion: 
+- packageId: com.unity.multiplayer.mlapi@0.1.0
+  testable: 0
+  isDirectDependency: 1
+  version: 0.1.0
+  source: 1
+  resolvedPath: D:\Projects\Draft\Draft\Library\PackageCache\com.unity.multiplayer.mlapi@0.1.0
+  assetPath: Packages/com.unity.multiplayer.mlapi
+  name: com.unity.multiplayer.mlapi
+  displayName: MLAPI Networking Library
+  author:
+    name: 
+    email: 
+    url: 
+  category: 
+  type: 
+  description: This the Core Unity Mid-level API that provides core SDK for multiplayer
+    games within unity
+  status: 4
+  errors: []
+  versions:
+    all:
+    - 0.1.0
+    compatible:
+    - 0.1.0
+    verified: 
+  dependencies:
+  - name: com.unity.nuget.mono-cecil
+    version: 1.10.1-preview.1
+  resolvedDependencies:
+  - name: com.unity.nuget.mono-cecil
+    version: 1.10.1-preview.1
+  keywords:
+  - unity
+  registry:
+    id: main
+    name: 
+    url: https://packages.unity.com
+    scopes: []
+    isDefault: 1
+    capabilities: 7
+  hasRegistry: 1
+  hideInEditor: 0
+  entitlements:
+    isAllowed: 1
+  isAssetStorePackage: 0
+  datePublishedTicks: 637564369660000000
+  documentationUrl: 
+  hasRepository: 1
+  repository:
+    type: git
+    url: git+https://github.com/Unity-Technologies/com.unity.multiplayer.mlapi.git
+    revision: db4f940e2cd4388b0db8af12d5d1f5f8b9ba0413
+    path: 
+  unityLifecycle:
+    version: 
     nextVersion: 
 - packageId: com.unity.test-framework@1.1.24
   testable: 0
@@ -1395,12 +1457,14 @@ m_ResolvedPackages:
     - 1.6.0-pre.1
     - 1.6.0-pre.3
     - 1.6.0-pre.4
+    - 1.6.0-pre.5
     compatible:
     - 1.5.4
     - 1.5.5
     - 1.6.0-pre.1
     - 1.6.0-pre.3
     - 1.6.0-pre.4
+    - 1.6.0-pre.5
     verified: 1.5.5
   dependencies:
   - name: com.unity.modules.director
@@ -3374,6 +3438,11 @@ m_ResolvedPackages:
   errors: []
   versions:
     all:
+    - 0.1.5-preview
+    - 0.1.6-preview
+    - 0.1.9-preview
+    - 1.0.0
+    - 1.0.5
     - 1.0.6
     compatible:
     - 1.0.6
@@ -3396,7 +3465,7 @@ m_ResolvedPackages:
   entitlements:
     isAllowed: 1
   isAssetStorePackage: 0
-  datePublishedTicks: 0
+  datePublishedTicks: 637429759280000000
   documentationUrl: 
   hasRepository: 1
   repository:
@@ -3406,6 +3475,72 @@ m_ResolvedPackages:
     path: 
   unityLifecycle:
     version: 1.0.6
+    nextVersion: 
+- packageId: com.unity.nuget.mono-cecil@1.10.1-preview.1
+  testable: 0
+  isDirectDependency: 0
+  version: 1.10.1-preview.1
+  source: 1
+  resolvedPath: D:\Projects\Draft\Draft\Library\PackageCache\com.unity.nuget.mono-cecil@1.10.1-preview.1
+  assetPath: Packages/com.unity.nuget.mono-cecil
+  name: com.unity.nuget.mono-cecil
+  displayName: Mono Cecil
+  author:
+    name: 
+    email: 
+    url: 
+  category: 
+  type: 
+  description: 'The mono cecil library from https://www.nuget.org/packages/Mono.Cecil/
+
+
+    This
+    package is intended for internal Unity use only. Most Unity users will be better
+    suite using the existing community tooling.
+
+    To avoid assembly clashes, please
+    use this package if you intend to use Mono.Cecil.'
+  status: 4
+  errors: []
+  versions:
+    all:
+    - 0.1.6-preview.2
+    - 1.0.0-preview.1
+    - 1.10.0-preview.1
+    - 1.10.1-preview.1
+    - 1.10.1
+    compatible:
+    - 0.1.6-preview.2
+    - 1.0.0-preview.1
+    - 1.10.0-preview.1
+    - 1.10.1-preview.1
+    - 1.10.1
+    verified: 
+  dependencies: []
+  resolvedDependencies: []
+  keywords: []
+  registry:
+    id: main
+    name: 
+    url: https://packages.unity.com
+    scopes: []
+    isDefault: 1
+    capabilities: 7
+  hasRegistry: 1
+  hideInEditor: 1
+  entitlements:
+    isAllowed: 1
+  isAssetStorePackage: 0
+  datePublishedTicks: 637414275090000000
+  documentationUrl: 
+  hasRepository: 1
+  repository:
+    type: git
+    url: https://github.cds.internal.unity3d.com/unity/com.unity.nuget.mono-cecil.git
+    revision: a3a6bd3697f92f6872f64c08a98ef2331394cd16
+    path: 
+  unityLifecycle:
+    version: 
     nextVersion: 
 - packageId: com.unity.mathematics@1.2.1
   testable: 0
@@ -3428,6 +3563,19 @@ m_ResolvedPackages:
   errors: []
   versions:
     all:
+    - 0.0.12-preview.2
+    - 0.0.12-preview.5
+    - 0.0.12-preview.8
+    - 0.0.12-preview.10
+    - 0.0.12-preview.11
+    - 0.0.12-preview.13
+    - 0.0.12-preview.17
+    - 0.0.12-preview.19
+    - 0.0.12-preview.20
+    - 1.0.0-preview.1
+    - 1.0.1
+    - 1.1.0-preview.1
+    - 1.1.0
     - 1.2.1
     compatible:
     - 1.2.1
@@ -3448,12 +3596,12 @@ m_ResolvedPackages:
   entitlements:
     isAllowed: 1
   isAssetStorePackage: 0
-  datePublishedTicks: 0
+  datePublishedTicks: 637324062630000000
   documentationUrl: 
   hasRepository: 1
   repository:
     type: git
-    url: https://github.com/Unity-Technologies/Unity.Mathematics.git
+    url: git+https://github.com/Unity-Technologies/Unity.Mathematics.git
     revision: 71412d94b7a0b0fdbb3195a5e6559bf6a761e91a
     path: 
   unityLifecycle:
@@ -3480,6 +3628,24 @@ m_ResolvedPackages:
   errors: []
   versions:
     all:
+    - 1.0.9-preview.1
+    - 1.0.9-preview.2
+    - 1.0.10-preview
+    - 1.0.11-preview.1
+    - 1.1.0-preview.1
+    - 1.1.0-preview.2
+    - 1.2.0-preview.1
+    - 2.0.1
+    - 2.0.2
+    - 2.1.0
+    - 3.0.0
+    - 3.0.1
+    - 4.0.0
+    - 4.0.1
+    - 4.0.2
+    - 4.0.3
+    - 5.0.0-pre.1
+    - 5.0.0-pre.2
     - 5.0.0
     compatible:
     - 5.0.0
@@ -3516,7 +3682,7 @@ m_ResolvedPackages:
   entitlements:
     isAllowed: 1
   isAssetStorePackage: 0
-  datePublishedTicks: 0
+  datePublishedTicks: 637526395060000000
   documentationUrl: 
   hasRepository: 1
   repository:
@@ -3548,6 +3714,22 @@ m_ResolvedPackages:
   errors: []
   versions:
     all:
+    - 1.0.0-preview.1
+    - 1.0.0-preview.4
+    - 2.0.1
+    - 2.0.2
+    - 2.0.3
+    - 2.0.4
+    - 2.0.5
+    - 2.0.6
+    - 2.1.0
+    - 3.0.0
+    - 3.0.1
+    - 3.0.2
+    - 4.0.0
+    - 4.0.1
+    - 5.0.0-pre.1
+    - 5.0.0-pre.2
     - 5.0.0
     compatible:
     - 5.0.0
@@ -3569,7 +3751,7 @@ m_ResolvedPackages:
   entitlements:
     isAllowed: 1
   isAssetStorePackage: 0
-  datePublishedTicks: 0
+  datePublishedTicks: 637526399200000000
   documentationUrl: 
   hasRepository: 1
   repository:

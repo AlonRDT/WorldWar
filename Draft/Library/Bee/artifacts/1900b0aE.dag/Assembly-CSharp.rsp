@@ -302,6 +302,7 @@
 -r:"D:/Programs/Unity/2021.1.6f1/Editor/Data/NetStandard/ref/2.0.0/netstandard.dll"
 -r:"D:/Programs/Unity/2021.1.6f1/Editor/Data/PlaybackEngines/iOSSupport/UnityEditor.iOS.Extensions.Common.dll"
 -r:"D:/Programs/Unity/2021.1.6f1/Editor/Data/PlaybackEngines/iOSSupport/UnityEditor.iOS.Extensions.Xcode.dll"
+-r:"D:/Projects/Draft/Draft/Library/PackageCache/com.unity.nuget.mono-cecil@1.10.1-preview.1/Mono.Cecil.dll"
 -r:"Library/Bee/artifacts/1900b0aE.dag/PsdPlugin.ref.dll"
 -r:"Library/Bee/artifacts/1900b0aE.dag/Unity.2D.Animation.Editor.ref.dll"
 -r:"Library/Bee/artifacts/1900b0aE.dag/Unity.2D.Animation.Runtime.ref.dll"
@@ -323,6 +324,8 @@
 -r:"Library/Bee/artifacts/1900b0aE.dag/Unity.Mathematics.Editor.ref.dll"
 -r:"Library/Bee/artifacts/1900b0aE.dag/Unity.Mathematics.ref.dll"
 -r:"Library/Bee/artifacts/1900b0aE.dag/Unity.Mobile.AndroidLogcat.Editor.ref.dll"
+-r:"Library/Bee/artifacts/1900b0aE.dag/Unity.Multiplayer.MLAPI.Prototyping.ref.dll"
+-r:"Library/Bee/artifacts/1900b0aE.dag/Unity.Multiplayer.MLAPI.Runtime.ref.dll"
 -r:"Library/Bee/artifacts/1900b0aE.dag/Unity.Notifications.Android.ref.dll"
 -r:"Library/Bee/artifacts/1900b0aE.dag/Unity.Notifications.iOS.ref.dll"
 -r:"Library/Bee/artifacts/1900b0aE.dag/Unity.Notifications.ref.dll"
@@ -338,8 +341,15 @@
 "Assets/Scripts/Button/Button.cs"
 "Assets/Scripts/Button/Button_Card.cs"
 "Assets/Scripts/Button/Button_Card_Monster.cs"
+"Assets/Scripts/Piles/CardPile.cs"
+"Assets/Scripts/Piles/CardPile_Field.cs"
+"Assets/Scripts/Piles/CardPile_Hand.cs"
+"Assets/Scripts/Piles/CardPile_Shop.cs"
+"Assets/Scripts/Piles/CardPile_Test.cs"
+"Assets/Scripts/Piles/ICardholder.cs"
 "Assets/Scripts/Player/PlayerInput.cs"
 "Assets/Scripts/Player/PlayerWallet.cs"
+"Assets/Scripts/Settings.cs"
 -langversion:8.0
 
 /deterministic
