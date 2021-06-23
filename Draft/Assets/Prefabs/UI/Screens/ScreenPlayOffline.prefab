@@ -12,8 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50ce34a563e5e684191194c7305da38d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buttons: []
-  screenType: 0
 --- !u!1001 &2823571879215697981
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -24,6 +22,10 @@ PrefabInstance:
     - target: {fileID: 2967144304404837108, guid: edb2d793c9ba80f45803350a31e3d291, type: 3}
       propertyPath: m_Name
       value: ScreenPlayOffline
+      objectReference: {fileID: 0}
+    - target: {fileID: 7952539384406631071, guid: edb2d793c9ba80f45803350a31e3d291, type: 3}
+      propertyPath: m_ScreenType
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 9054510973129916793, guid: edb2d793c9ba80f45803350a31e3d291, type: 3}
       propertyPath: m_RootOrder

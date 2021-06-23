@@ -199,7 +199,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 706077214057225675}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 7952539384406631071}
+        m_TargetAssemblyTypeName: ScreenLogic, Assembly-CSharp
+        m_MethodName: GoALevelDown
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &8768982966454799115
 GameObject:
   m_ObjectHideFlags: 0
@@ -337,6 +349,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ce9710346b8eeee4fbd2047a2ff495f6, type: 3}
+--- !u!114 &7952539384406631071 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5004437548761954554, guid: ce9710346b8eeee4fbd2047a2ff495f6, type: 3}
+  m_PrefabInstance: {fileID: 3111509055345613413}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e90eccbf96b9e034896d2bb33f93d30d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &6019221822778132999 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8693881714192224354, guid: ce9710346b8eeee4fbd2047a2ff495f6, type: 3}
