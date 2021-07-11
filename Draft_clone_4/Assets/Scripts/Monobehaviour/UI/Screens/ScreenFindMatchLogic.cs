@@ -13,12 +13,15 @@ public class ScreenFindMatchLogic : MonoBehaviour
     [SerializeField] private float m_TimeToChangeTextInSeconds = 0.3f;
     [SerializeField] private Text m_SearchingText;
     [SerializeField] private Text m_PlayersInLobbyText;
+    [SerializeField] private Toggle m_StartAnywayToggle;
     private static Text PlayersInLobbyText;
+    NetworkManagerDraft m_NetworkManager;
 
 
     private void Start()
     {
         PlayersInLobbyText = m_PlayersInLobbyText;
+        m_NetworkManager = NetworkManager.singleton as NetworkManagerDraft;
     }
 
     void Update()
@@ -60,6 +63,29 @@ public class ScreenFindMatchLogic : MonoBehaviour
 
     public void ToggleStartAnyway(bool newValue)
     {
-        NetworkLobbyPlayer.LocalPlayer.OnChangeStartMatchAnyway(newValue);
+        PlayerNetwork.LocalPlayer.OnChangeStartMatchAnyway(newValue);
+    }
+
+    public void StopSearching()
+    {
+        m_NetworkManager.StopClient();
+    }
+
+    private void OnEnable()
+    {
+        m_StartAnywayToggle.isOn = false;
+        NetworkManagerDraft.OnClientDisconnected += HandleClientDisconnected;
+    }
+
+    private void OnDisable()
+    {
+        NetworkManagerDraft.OnClientDisconnected -= HandleClientDisconnected;
+    }
+
+    private void HandleClientDisconnected()
+    {
+        MainMenuLogic mainMenu = transform.parent.GetComponent<MainMenuLogic>();
+        mainMenu.MenuLevelDown();
+        mainMenu.MenuLevelUp(4);
     }
 }

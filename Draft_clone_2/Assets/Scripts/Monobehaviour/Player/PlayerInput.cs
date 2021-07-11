@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class PlayerInput : MonoBehaviour
 {
-    public GameObject myPrefab;
-
     private Button currentButton;
 
     // Update is called once per frame

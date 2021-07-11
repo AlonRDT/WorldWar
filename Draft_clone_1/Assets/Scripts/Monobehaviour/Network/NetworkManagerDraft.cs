@@ -10,14 +10,16 @@ public class NetworkManagerDraft : NetworkManager
 {
     [Header("Lobby")]
     [Scene] [SerializeField] private string m_MenuScene = string.Empty;
-    [SerializeField] private GameObject m_LobbyPlayerPrefab = null;
-    private List<NetworkLobbyPlayer> m_PlayerQueue = new List<NetworkLobbyPlayer>();
+    [SerializeField] private GameObject m_PlayerPrefab = null;
+    private List<PlayerNetwork> m_PlayerQueue = new List<PlayerNetwork>();
 
 
     [Header("Game")]
     [Scene] [SerializeField] private string m_GameScene = string.Empty;
-    [SerializeField] private GameObject m_GamePlayerPrefab = null;
-    private List<NetworkGameRoom> m_ActiveGames;
+    private List<Match> m_ActiveGames;
+
+    [SerializeField] private GameObject m_GameRoomPrefab;
+    private List<GameRoom> m_Games = new List<GameRoom>();
 
     public static event Action OnClientConnected;
     public static event Action OnClientDisconnected;
@@ -38,17 +40,31 @@ public class NetworkManagerDraft : NetworkManager
 
     public override void OnServerAddPlayer(NetworkConnection conn)
     {
-        if (SceneManager.GetActiveScene().name == Path.GetFileNameWithoutExtension(m_MenuScene))
+        PlayerNetwork roomPlayerInstance = Instantiate(m_PlayerPrefab).GetComponent<PlayerNetwork>();
+
+        m_PlayerQueue.Add(roomPlayerInstance);
+
+        NetworkServer.AddPlayerForConnection(conn, roomPlayerInstance.gameObject);
+
+        UpdateSearchingPlayersText();
+    }
+
+
+
+    public override void OnServerDisconnect(NetworkConnection conn)
+    {
+        foreach (var player in conn.clientOwnedObjects)
         {
-            NetworkLobbyPlayer roomPlayerInstance = Instantiate(m_LobbyPlayerPrefab).GetComponent<NetworkLobbyPlayer>();
-
-            m_PlayerQueue.Add(roomPlayerInstance);
-
-            NetworkServer.AddPlayerForConnection(conn, roomPlayerInstance.gameObject);
-
-            roomPlayerInstance.StartSearchingGame();
-
+            PlayerNetwork disconnectedPlayer = player.gameObject.GetComponent<PlayerNetwork>();
+            if (disconnectedPlayer != null)
+            {
+                m_PlayerQueue.Remove(disconnectedPlayer);
+            }
         }
+
+        UpdateSearchingPlayersText();
+
+        base.OnServerDisconnect(conn);
     }
 
     public int GetPlayersInQeueAmount()
@@ -62,5 +78,36 @@ public class NetworkManagerDraft : NetworkManager
         {
             player.ChangeSearchingPlayersText(m_PlayerQueue.Count);
         }
+    }
+
+    public void CheckStartAnyway()
+    {
+        int numberOfStartAnywayPlayers = 0;
+        foreach (var player in m_PlayerQueue)
+        {
+            if (player.StartAnyway == true)
+            {
+                numberOfStartAnywayPlayers++;
+            }
+        }
+
+        Debug.Log(numberOfStartAnywayPlayers);
+        if (numberOfStartAnywayPlayers == m_PlayerQueue.Count && numberOfStartAnywayPlayers > 1)
+        {
+            StartGameForQueue();
+        }
+    }
+
+    private void StartGameForQueue()
+    {
+        GameRoom newRoom = Instantiate(m_GameRoomPrefab, Vector3.zero, Quaternion.identity).GetComponent<GameRoom>();
+        m_Games.Add(newRoom);
+        newRoom.StartGame(m_PlayerQueue);
+        m_PlayerQueue.Clear();
+    }
+
+    public override void OnServerSceneChanged(string sceneName)
+    {
+        base.OnServerSceneChanged(sceneName);
     }
 }

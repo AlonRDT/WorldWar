@@ -44,6 +44,7 @@ public class MainMenuLogic : MonoBehaviour
     {
         MenuScreenTransition targetTransition = m_ScreenTransitions.Find(a => a.m_CurrentScreen == m_CurrentScreen);
         getScreen(m_CurrentScreen).DisableScreen();
+        Debug.Log(targetTransition.m_NextScreen[nextLevelIndex - 1]);
         getScreen(targetTransition.m_NextScreen[nextLevelIndex]).TurnScreenOn();
         m_CurrentScreen = targetTransition.m_NextScreen[nextLevelIndex];
     }

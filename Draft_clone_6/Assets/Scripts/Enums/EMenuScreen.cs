@@ -8,5 +8,6 @@ public enum EMenuScreen
     GameSettingsScreen,
     MatchSettingsScreen,
     FindMatchScreen,
-    PlayOfflineScreen
+    PlayOfflineScreen,
+    DisconnectedScreen
 }
