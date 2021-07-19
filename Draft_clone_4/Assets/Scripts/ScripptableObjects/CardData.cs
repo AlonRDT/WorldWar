@@ -6,7 +6,7 @@ using UnityEngine;
 public class CardData : ScriptableObject
 {
     public string Name;
-    public Sprite Image;
+    public string ImageLocation;
     public int Attack;
     public int Health;
     public int DiplomacyPoints;

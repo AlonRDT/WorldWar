@@ -5,7 +5,6 @@ using UnityEngine;
 
 public abstract class CardPile : MonoBehaviour
 {
-    protected List<Button_Card> m_HeldCards;
     protected float m_PileWidthScreenFraction;
     protected float m_PileHeightScreenFraction;
     protected float m_PileLocationXScreenFraction;
@@ -23,14 +22,13 @@ public abstract class CardPile : MonoBehaviour
         }
     }
 
-    protected abstract bool canCardEnter(Button_Card leavingCard);
+    protected abstract bool canCardEnter(Button_Card enteringCard);
     protected abstract bool canCardLeave(Button_Card leavingCard);
     protected abstract void addNewCardToPile(Button_Card cardToAdd);
-    public abstract void ReturnCardToPlace(Button_Card cardToAdd);
+    public abstract void ReturnCardToPlace(Button_Card cardToReturn);
 
     public void Start()
     {
-        m_HeldCards = new List<Button_Card>();
         transform.position = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width * m_PileLocationXScreenFraction, Screen.height * m_PileLocationYScreenFraction, 12));
 
         Vector2 screenSize;

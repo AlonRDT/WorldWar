@@ -91,8 +91,8 @@ public class NetworkManagerDraft : NetworkManager
             }
         }
 
-        Debug.Log(numberOfStartAnywayPlayers);
-        if (numberOfStartAnywayPlayers == m_PlayerQueue.Count && numberOfStartAnywayPlayers > 1)
+        //Debug.Log(numberOfStartAnywayPlayers);
+        if (numberOfStartAnywayPlayers == m_PlayerQueue.Count)// && numberOfStartAnywayPlayers > 1)
         {
             StartGameForQueue();
         }
@@ -101,9 +101,12 @@ public class NetworkManagerDraft : NetworkManager
     private void StartGameForQueue()
     {
         GameRoom newRoom = Instantiate(m_GameRoomPrefab, Vector3.zero, Quaternion.identity).GetComponent<GameRoom>();
+        //DontDestroyOnLoad(newRoom);
+        NetworkServer.Spawn(newRoom.gameObject);
         m_Games.Add(newRoom);
         newRoom.StartGame(m_PlayerQueue);
         m_PlayerQueue.Clear();
+        //Debug.Log("start game");
     }
 
     public override void OnServerSceneChanged(string sceneName)

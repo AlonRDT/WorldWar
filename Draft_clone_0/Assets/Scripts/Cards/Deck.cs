@@ -6,6 +6,7 @@ using UnityEngine;
 public class Deck
 {
     private List<CardRepresentation>[] m_Cards = new List<CardRepresentation>[Settings.DiplomacyLevels];
+    private CardData m_StartCardData;
 
     public Deck()
     {
@@ -14,43 +15,48 @@ public class Deck
             m_Cards[i] = new List<CardRepresentation>();
         }
         CardData[] templates = Resources.LoadAll<CardData>("");
-
         foreach (var data in templates)
         {
-            for (int i = 0; i < decideCardAmount(data.DiplomacyLevel); i++)
+            if (data.DiplomacyLevel == 0)
             {
-                addCard(new CardRepresentation(data));
+                m_StartCardData = data;
+                //Debug.Log("Dip 0");
+            }
+            else
+            {
+                for (int i = 0; i < decideCardAmount(data.DiplomacyLevel); i++)
+                {
+                    addCard(new CardRepresentation(data));
+                }
             }
         }
     }
 
     private int decideCardAmount(int diplomacyLevel)
     {
-        int output = 8;
-        output -= (diplomacyLevel - 1) * 2;
-        if(output == 0)
-        {
-            output++;
-        }
-        return output * 4;
+        int output = 6 - diplomacyLevel;
+
+        return output * Settings.RequiredCardsToUpdrade;
     }
 
     private void addCard(CardRepresentation card)
     {
         if (card.DiplomacyLevel > 0)
         {
-            m_Cards[card.DiplomacyLevel].Add(card);
+            m_Cards[card.DiplomacyLevel - 1].Add(card);
         }
     }
 
     public List<CardRepresentation> GetShopCards(int playerDiplomacyLevel)
     {
-        int amount = 3 + playerDiplomacyLevel / 2;
+        int amount = Settings.MaxCardsInShop - 2 + playerDiplomacyLevel / 2;
         List<CardRepresentation> pool = new List<CardRepresentation>();
 
         for (int i = 0; i < playerDiplomacyLevel; i++)
         {
-            pool.Concat(m_Cards[i]);
+            //Debug.Log("card per level" + m_Cards[i].Count);
+            pool = pool.Concat(m_Cards[i]).ToList();
+            //Debug.Log("pool size" + pool.Count);
         }
 
         return getRandomCards(pool, amount);
@@ -61,14 +67,25 @@ public class Deck
         List<CardRepresentation> output = new List<CardRepresentation>();
         CardRepresentation card;
 
+        //Debug.Log("amount " + amount);
         for (int i = 0; i < amount; i++)
         {
             card = pool[UnityEngine.Random.Range(0, pool.Count)];
+            //Debug.Log("index " + index);
             pool.Remove(card);
             m_Cards[card.DiplomacyLevel - 1].Remove(card);
             output.Add(card);
         }
+        return output;
+    }
 
+    public CardSlot[] CreateStartField()
+    {
+        CardSlot[] output = new CardSlot[Settings.MaxCardsInField];
+        for (int i = 0; i < Settings.StartCardAmount; i++)
+        {
+            output[i] = new CardSlot(new CardRepresentation(m_StartCardData));
+        }
         return output;
     }
 }

@@ -12,11 +12,12 @@ public class PlayerNetwork : NetworkBehaviour
     public bool StartAnyway;
     [SyncVar] public string Nickname;
     private NetworkManagerDraft m_NetworkManager;
-    public PlayerGameState State { get; set; }
+    public PlayerMap MapManager { get; private set; }
 
     private void Awake()
     {
         m_NetworkManager = NetworkManager.singleton as NetworkManagerDraft;
+        MapManager = GetComponent<PlayerMap>();
     }
 
     public override void OnStartLocalPlayer()
@@ -47,20 +48,34 @@ public class PlayerNetwork : NetworkBehaviour
     }
 
     [TargetRpc]
-    public void ClientStartGame(PlayerGameState startState)
+    public void ClientStartGame()
     {
+        DontDestroyOnLoad(this);
         SceneManager.LoadScene("Game");
-    }
-
-    [Command]
-    public void ServerStartGame()
-    {
-        State = new PlayerGameState();
     }
 
     [Command]
     private void CmdSetDisplayName(string displayName)
     {
         Nickname = displayName;
+    }
+
+    [TargetRpc]
+    public void AddCardToShop(CardFinalData newCard)
+    {
+        newCard.PrintAttribute();
+        CardPile_Shop.Instance.CreateNewCard(newCard);
+    }
+
+    [TargetRpc]
+    public void ArrangeShopCards()
+    {
+        CardPile_Shop.Instance.ArrangeCards();
+    }
+
+    [TargetRpc]
+    public void DestroyShopCards()
+    {
+        CardPile_Shop.Instance.DestroyCards();
     }
 }

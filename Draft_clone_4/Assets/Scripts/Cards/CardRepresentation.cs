@@ -5,7 +5,7 @@ using UnityEngine;
 public class CardRepresentation
 {
     public string Name { get; private set; }
-    public Sprite Image { get; private set; }
+    public string ImageLocation { get; private set; }
     public int Attack { get; private set; }
     public int Health { get; private set; }
     public int DiplomacyPoints { get; private set; }
@@ -16,24 +16,12 @@ public class CardRepresentation
     public CardRepresentation(CardData data)
     {
         Name = data.Name;
-        Image = data.Image;
+        ImageLocation = data.ImageLocation;
         Attack = data.Attack;
         Health = data.Health;
         DiplomacyPoints = data.DiplomacyPoints;
         DiplomacyLevel = data.DiplomacyLevel;
         Income = data.Income;
         Ability = data.Ability;
-    }
-
-    public CardRepresentation()
-    {
-        Name = "Italy";
-        Attack = 1;
-        Health = 1;
-        DiplomacyPoints = 0;
-        Income = 1;
-        DiplomacyLevel = 0;
-        DiplomacyPoints = 0;
-        Ability = ECardAbility.None;
     }
 }

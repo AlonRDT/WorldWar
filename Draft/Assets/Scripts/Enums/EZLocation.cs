@@ -5,7 +5,7 @@ using UnityEngine;
 public enum EZLocation
 {
     Background,
-    Level1Pile,
-    Level2Pile,
+    Pile,
+    Placeholder,
     Card
 }
