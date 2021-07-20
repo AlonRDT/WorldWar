@@ -88,4 +88,21 @@ public class Deck
         }
         return output;
     }
+
+    public void ReturnCardsToDeck(List<CardRepresentation> returningCards)
+    {
+        //Debug.Log("returning cards " + returningCards.Count);
+        foreach (var card in returningCards)
+        {
+            if (card.DiplomacyLevel > 0)
+            {
+                m_Cards[card.DiplomacyLevel - 1].Add(card);
+            }
+        }
+    }
+
+    public int GetCardAmount(int tier)
+    {
+        return m_Cards[tier - 1].Count;
+    }
 }

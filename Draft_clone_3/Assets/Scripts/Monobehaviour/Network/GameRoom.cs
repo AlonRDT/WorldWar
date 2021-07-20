@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
 
-public class GameRoom : NetworkBehaviour
+public class GameRoom : NetworkBehaviour, IGameManager
 {
     //public string GameID { get; private set; }
+    [SyncVar] public string MatchID;
     private Dictionary<PlayerNetwork, PlayerGameState> m_PlayerStates;
     private Deck m_Deck;
     private float m_AcummulatedTime;
@@ -17,8 +18,8 @@ public class GameRoom : NetworkBehaviour
         m_Deck = new Deck();
         foreach (var player in players)
         {
-            m_PlayerStates.Add(player, new PlayerGameState(m_Deck.CreateStartField(), m_Deck.GetShopCards(1)));
-            //Debug.Log("end start");
+            m_PlayerStates.Add(player, new PlayerGameState(m_Deck.CreateStartField()));
+            //Debug.Log(player.Nickname);
             player.ClientStartGame();
         }
         m_AcummulatedTime = 0;
@@ -45,12 +46,17 @@ public class GameRoom : NetworkBehaviour
 
     public void RefreshShop(PlayerNetwork player)
     {
-        List<CardSlot> shopCards = m_PlayerStates[player].GetShopState();
+        //Debug.Log("7");
+        PlayerGameState state = m_PlayerStates[player];
+        //Debug.Log("deck " + m_Deck.GetCardAmount(1));
+        m_Deck.ReturnCardsToDeck(state.ReplaceShopCards(m_Deck.GetShopCards(state.DiplomacyLevel)));
+        //Debug.Log("shop amount " + state.GetShopState().Count);
+        //Debug.Log("deck " + m_Deck.GetCardAmount(1));
+        List<CardSlot> shopCards = state.GetShopState();
         player.DestroyShopCards();
         foreach (var card in shopCards)
         {
             player.AddCardToShop(card.GenerateFinalCard());
-            card.GenerateFinalCard().PrintAttribute();
         }
         player.ArrangeShopCards();
     }

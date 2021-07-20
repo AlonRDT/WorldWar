@@ -39,9 +39,4 @@ public class CardFinalData
         Ability = ability;
         CardLevel = cardLevel;
     }
-    
-    public void PrintAttribute()
-    {
-        Debug.Log(ImageLocation);
-    }
 }

@@ -381,6 +381,7 @@
 "Assets/Scripts/Monobehaviour/Button/Button_Card.cs"
 "Assets/Scripts/Monobehaviour/Button/Button_Card_Monster.cs"
 "Assets/Scripts/Monobehaviour/Network/GameRoom.cs"
+"Assets/Scripts/Monobehaviour/Network/IGameManager.cs"
 "Assets/Scripts/Monobehaviour/Network/NetworkManagerDraft.cs"
 "Assets/Scripts/Monobehaviour/Network/PlayerGameState.cs"
 "Assets/Scripts/Monobehaviour/OpenGameManager.cs"

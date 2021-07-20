@@ -7,17 +7,16 @@ using UnityEngine.SceneManagement;
 
 public class PlayerNetwork : NetworkBehaviour
 {
-    public static PlayerNetwork LocalPlayer;
     [SyncVar] public string MatchID;
-    public bool StartAnyway;
     [SyncVar] public string Nickname;
+    public bool StartAnyway;
+    public static PlayerNetwork LocalPlayer;
     private NetworkManagerDraft m_NetworkManager;
-    public PlayerMap MapManager { get; private set; }
+    public IGameManager GameManager { get; set; }
 
     private void Awake()
     {
         m_NetworkManager = NetworkManager.singleton as NetworkManagerDraft;
-        MapManager = GetComponent<PlayerMap>();
     }
 
     public override void OnStartLocalPlayer()
@@ -51,19 +50,21 @@ public class PlayerNetwork : NetworkBehaviour
     public void ClientStartGame()
     {
         DontDestroyOnLoad(this);
+        //GameManager.DontDestroyGameManagerOnLoad();
+       // Debug.Log("client start");
         SceneManager.LoadScene("Game");
     }
 
     [Command]
     private void CmdSetDisplayName(string displayName)
     {
+        //Debug.Log(displayName);
         Nickname = displayName;
     }
 
     [TargetRpc]
     public void AddCardToShop(CardFinalData newCard)
     {
-        newCard.PrintAttribute();
         CardPile_Shop.Instance.CreateNewCard(newCard);
     }
 
@@ -77,5 +78,11 @@ public class PlayerNetwork : NetworkBehaviour
     public void DestroyShopCards()
     {
         CardPile_Shop.Instance.DestroyCards();
+    }
+
+    [Command]
+    public void RefreshShop()
+    {
+        GameManager.RefreshShop(this);
     }
 }

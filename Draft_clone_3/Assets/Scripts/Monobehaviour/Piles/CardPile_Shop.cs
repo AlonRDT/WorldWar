@@ -61,8 +61,9 @@ public class CardPile_Shop : CardPile
     {
         foreach (var card in m_HeldCards)
         {
-            Destroy(card);
+            Destroy(card.gameObject);
         }
+        m_HeldCards.Clear();
     }
 
     public void CreateNewCard(CardFinalData newCardData)

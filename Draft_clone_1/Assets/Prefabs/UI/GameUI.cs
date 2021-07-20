@@ -11,4 +11,9 @@ public class GameUI : MonoBehaviour
     {
         m_PlayerNameText.text = PlayerNetwork.LocalPlayer.Nickname;
     }
+
+    public void RefreshShop()
+    {
+        PlayerNetwork.LocalPlayer.RefreshShop();
+    }
 }

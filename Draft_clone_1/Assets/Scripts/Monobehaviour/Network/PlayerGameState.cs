@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class PlayerGameState
 {
-    private int m_DiplomacyLevel;
+    public int DiplomacyLevel { get; private set; }
     private int m_HealthPoints;
     private int m_Money;
     private List<CardSlot> m_Shop;
@@ -20,14 +20,13 @@ public class PlayerGameState
 
     }
 
-    public PlayerGameState(CardSlot[] startField, List<CardRepresentation> startShop)
+    public PlayerGameState(CardSlot[] startField)
     {
         m_Hand = new CardSlot[Settings.MaxCardsInHand];
         m_Field = startField;
         m_Shop = new List<CardSlot>();
-        ReplaceShopCards(startShop);
 
-        m_DiplomacyLevel = 1;
+        DiplomacyLevel = 1;
         m_HealthPoints = Settings.StartHealth;
         m_Money = Settings.StartCardAmount;
     }
@@ -37,7 +36,7 @@ public class PlayerGameState
         List<CardRepresentation> output = new List<CardRepresentation>();
         foreach (var card in m_Shop)
         {
-            output.Concat(card.GetCardsAndReset());
+            output = output.Concat(card.GetCardsAndReset()).ToList();
         }
         m_Shop.Clear();
         //m_Shop = new List<CardSlot>();

@@ -100,17 +100,70 @@ public class NetworkManagerDraft : NetworkManager
 
     private void StartGameForQueue()
     {
+        string matchID = getVerifiedMatchID();
         GameRoom newRoom = Instantiate(m_GameRoomPrefab, Vector3.zero, Quaternion.identity).GetComponent<GameRoom>();
+        newRoom.MatchID = matchID;
+        foreach (var player in m_PlayerQueue)
+        {
+            player.MatchID = matchID;
+            player.GameManager = newRoom;
+        }
+
+
         //DontDestroyOnLoad(newRoom);
-        NetworkServer.Spawn(newRoom.gameObject);
         m_Games.Add(newRoom);
+        //NetworkServer.Spawn(newRoom.gameObject);
         newRoom.StartGame(m_PlayerQueue);
+        //Debug.Log("game room spawned");
         m_PlayerQueue.Clear();
         //Debug.Log("start game");
     }
 
-    public override void OnServerSceneChanged(string sceneName)
+    private string getRandomMatchID()
     {
-        base.OnServerSceneChanged(sceneName);
+        string id = string.Empty;
+
+        for (int i = 0; i < 5; i++)
+        {
+            int random = UnityEngine.Random.Range(0, 36);
+            if (random < 26)
+            {
+                id += (char)(random + 65);
+            }
+            else
+            {
+                id += (random - 26).ToString();
+            }
+        }
+
+        return id;
+    }
+
+    private string getVerifiedMatchID()
+    {
+        string output = getRandomMatchID();
+
+        while(!isMathIDAvailable(output))
+        {
+            output = getRandomMatchID();
+        }
+
+        return output;
+    }
+
+    private bool isMathIDAvailable(string input)
+    {
+        bool output = true;
+
+        foreach (var room in m_Games)
+        {
+            if(room.MatchID == input)
+            {
+                output = false;
+                break;
+            }
+        }
+
+        return output;
     }
 }
