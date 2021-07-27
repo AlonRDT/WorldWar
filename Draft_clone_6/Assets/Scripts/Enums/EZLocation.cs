@@ -4,8 +4,10 @@ using UnityEngine;
 
 public enum EZLocation
 {
+    Hidden,
     Background,
     Pile,
     Placeholder,
-    Card
+    Card,
+    Line
 }

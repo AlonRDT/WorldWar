@@ -12,6 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a07fcd74747eaa4dae65b08466d0c56, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_MosnterPrefab: {fileID: 4104919036585636980, guid: b4c4a1f134ac29249b3922e30ae1a509, type: 3}
+  m_PileType: 0
+  m_Background: {fileID: 0}
 --- !u!1001 &8175776892938446373
 PrefabInstance:
   m_ObjectHideFlags: 0

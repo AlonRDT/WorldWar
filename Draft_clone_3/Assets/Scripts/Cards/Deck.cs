@@ -81,7 +81,7 @@ public class Deck
 
     public CardSlot[] CreateStartField()
     {
-        CardSlot[] output = new CardSlot[Settings.MaxCardsInField];
+        CardSlot[] output = new CardSlot[Settings.FieldCardsRows * Settings.FieldCardsColumns];
         for (int i = 0; i < Settings.StartCardAmount; i++)
         {
             output[i] = new CardSlot(new CardRepresentation(m_StartCardData));

@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 6302503543062936846}
   - component: {fileID: -709796362234069162}
   - component: {fileID: -4704467119585106187}
+  - component: {fileID: 9206172432598613393}
   m_Layer: 0
   m_Name: GameRoom
   m_TagString: Untagged
@@ -56,9 +57,24 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5285173657302890203}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 22db0dc92d83a0c45bc932272fac4867, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  MatchID: 
+--- !u!114 &9206172432598613393
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5285173657302890203}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f574677bba2f72040b69bfe6bd249162, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   syncMode: 0

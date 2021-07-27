@@ -4,5 +4,6 @@ using UnityEngine;
 
 public interface IGameManager
 {
-    void RefreshShop(PlayerNetwork player);
+    void RequestRefreshShop(PlayerNetwork player);
+    void RequestMoveCard(PlayerNetwork player, EPileType oldPile, int oldIndex, EPileType newPile, int newIndex);
 }

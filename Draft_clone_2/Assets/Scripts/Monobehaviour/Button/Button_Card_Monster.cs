@@ -9,7 +9,12 @@ public class Button_Card_Monster : Button_Card
     [SerializeField] private TextMesh m_IncomeText;
     [SerializeField] private TextMesh m_DiplomacyText;
 
-    public void InitializeVisualInformation(CardFinalData cardData)
+    public override void Click()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public void Initialize(CardFinalData cardData)
     {
         GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(cardData.ImageLocation);
         //GetComponent<SpriteRenderer>().size = new Vector2(2, 2);
@@ -17,15 +22,5 @@ public class Button_Card_Monster : Button_Card
         m_AttackText.text = cardData.Attack.ToString();
         m_IncomeText.text = cardData.Income.ToString();
         m_DiplomacyText.text = cardData.DiplomacyPoints.ToString();
-    }
-
-    protected override void longClick()
-    {
-        Debug.Log("Long Click");
-    }
-
-    protected override void shortClick()
-    {
-        Debug.Log("Short Click");
     }
 }

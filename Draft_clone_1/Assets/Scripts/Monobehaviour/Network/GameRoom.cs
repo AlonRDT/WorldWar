@@ -7,57 +7,75 @@ public class GameRoom : NetworkBehaviour, IGameManager
 {
     //public string GameID { get; private set; }
     [SyncVar] public string MatchID;
-    private Dictionary<PlayerNetwork, PlayerGameState> m_PlayerStates;
-    private Deck m_Deck;
+    private GameDataManager m_GameDataManager;
+
+    private float m_StartDelay;
     private float m_AcummulatedTime;
-    private float m_WaitToShopPhase;
+    private float m_CombatAttackInterval;
+    private int m_ShopPhaseDuration;
+    private bool m_IsCombat;
 
     public void StartGame(List<PlayerNetwork> players)
     {
-        m_PlayerStates = new Dictionary<PlayerNetwork, PlayerGameState>();
-        m_Deck = new Deck();
-        foreach (var player in players)
+        for (int i = 0; i < players.Count; i++)
         {
-            m_PlayerStates.Add(player, new PlayerGameState(m_Deck.CreateStartField()));
-            //Debug.Log(player.Nickname);
-            player.ClientStartGame();
+            players[i].PlayerGameIndex = i;
+            players[i].ClientStartGame();
         }
+
+        m_IsCombat = true;
+        m_StartDelay = 1;
         m_AcummulatedTime = 0;
-        m_WaitToShopPhase = 1;
+        m_CombatAttackInterval = 3;
+        m_ShopPhaseDuration = 10;
+
+        m_GameDataManager = new GameDataManager(players);
+
+        StartCoroutine(StartDelay());
+    }
+
+    IEnumerator StartDelay()
+    {
+        yield return new WaitForSeconds(m_StartDelay);
+        m_GameDataManager.StartShopPhase(m_ShopPhaseDuration);
+        enabled = true;
     }
 
     private void Update()
     {
         m_AcummulatedTime += Time.deltaTime;
-        if(m_WaitToShopPhase != 0 && m_AcummulatedTime > m_WaitToShopPhase)
+        if(m_IsCombat == true)
         {
-            startShopPhase();
-            m_WaitToShopPhase = 0;
+            if(m_AcummulatedTime >= m_CombatAttackInterval)
+            {
+                m_AcummulatedTime -= m_CombatAttackInterval;
+                m_IsCombat = m_GameDataManager.CombatStep();
+                if(m_IsCombat == false)
+                {
+                    m_ShopPhaseDuration += Settings.ShopPhaseDurationIncrement;
+                    m_GameDataManager.StartShopPhase(m_ShopPhaseDuration);
+                    m_AcummulatedTime = 0;
+                }
+            }
+        }
+        else
+        {
+            if(m_AcummulatedTime >= m_ShopPhaseDuration)
+            {
+                m_GameDataManager.StartCombatPhase();
+                m_AcummulatedTime = 0;
+                m_IsCombat = true;
+            }
         }
     }
 
-    private void startShopPhase()
+    public void RequestRefreshShop(PlayerNetwork player)
     {
-        foreach (KeyValuePair<PlayerNetwork, PlayerGameState> player in m_PlayerStates)
-        {
-            RefreshShop(player.Key);
-        }
+        m_GameDataManager.RequestRefreshShop(player.PlayerGameIndex);
     }
 
-    public void RefreshShop(PlayerNetwork player)
+    public void RequestMoveCard(PlayerNetwork player, EPileType oldPile, int oldIndex,  EPileType newPile, int newIndex)
     {
-        //Debug.Log("7");
-        PlayerGameState state = m_PlayerStates[player];
-        //Debug.Log("deck " + m_Deck.GetCardAmount(1));
-        m_Deck.ReturnCardsToDeck(state.ReplaceShopCards(m_Deck.GetShopCards(state.DiplomacyLevel)));
-        //Debug.Log("shop amount " + state.GetShopState().Count);
-        //Debug.Log("deck " + m_Deck.GetCardAmount(1));
-        List<CardSlot> shopCards = state.GetShopState();
-        player.DestroyShopCards();
-        foreach (var card in shopCards)
-        {
-            player.AddCardToShop(card.GenerateFinalCard());
-        }
-        player.ArrangeShopCards();
+        m_GameDataManager.RequestMoveCard(player.PlayerGameIndex, oldPile, oldIndex, newPile, newIndex);
     }
 }
