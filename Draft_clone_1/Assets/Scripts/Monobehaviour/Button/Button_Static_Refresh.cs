@@ -7,7 +7,7 @@ public class Button_Static_Refresh : Button_Static
     public static Button_Static_Refresh Instance;
     public override void Click()
     {
-        PlayerNetwork.LocalPlayer.RefreshShop();
+        PlayerNetwork.LocalPlayer.RequestRefreshShop();
     }
 
     public override void StartMouseHover()

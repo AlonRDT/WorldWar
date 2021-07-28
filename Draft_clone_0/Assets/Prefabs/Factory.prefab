@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1596593040632795683}
+  - component: {fileID: 5202879295487549630}
   m_Layer: 0
   m_Name: Factory
   m_TagString: Untagged
@@ -30,3 +31,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5202879295487549630
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2657151302047486394}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f97df50fbd9413c469f93977ea634a2c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_CardMonsterPrefab: {fileID: 4104919036585636980, guid: b4c4a1f134ac29249b3922e30ae1a509, type: 3}
+  m_CardPlaceholderPrefab: {fileID: 2609855404181980239, guid: f0280d3196e8e4545973604b8609ad3d, type: 3}

@@ -77,7 +77,7 @@ public class PlayerNetwork : NetworkBehaviour
     [TargetRpc]
     public void GenerateAndAddCardToCardPile(CardFinalData newCard, EPileType pileType, int index)
     {
-        CardPileManager.GetCardPile(pileType).AddNewCard(Factory.Instance.GenerateCard(newCard), index);
+        CardPileManager.GetCardPile(pileType).PlaceCard(Factory.Instance.GenerateCard(newCard), index);
     }
 
     [TargetRpc]
@@ -92,29 +92,36 @@ public class PlayerNetwork : NetworkBehaviour
         CardPileManager.DestroyAllButtons();
     }
 
+    [TargetRpc]
+    public void DestroyTargetCard(EPileType pile, int index)
+    {
+        CardPileManager.GetCardPile(pile).DestroyTargetCard(index);
+    }
+
     [Command]
-    public void RefreshShop()
+    public void RequestRefreshShop()
     {
         GameManager.RequestRefreshShop(this);
     }
 
     [Command]
-    public void AskServerToMoveCard(int cardIndex, EPileType oldPile, EPileType newPile)
+    public void RequestMoveCard(EPileType oldPile, int oldIndex, EPileType newPile, int newIndex)
     {
-        GameManager.RequestMoveCard(this, oldPile, 0, newPile, 0);
-
+        GameManager.RequestMoveCard(this, oldPile, oldIndex, newPile, newIndex);
     }
 
     [TargetRpc]
-    public void HandleCardTransferResult(bool isTransfer, EPileType oldPile, EPileType newPile)
+    public void MoveCard(EPileType oldPile, int oldIndex, EPileType newPile, int newIndex)
     {
-        //Debug.Log(isTransfer);
-        Button_Card transitionCard = GetComponent<PlayerInput>().GetAndResetTransitionCard();
-        if (isTransfer)
-        {
-            CardPileManager.GetCardPile(oldPile).RemoveCardFromPile(transitionCard);
-            CardPileManager.GetCardPile(newPile).AcceptNewCardToPile(transitionCard);
-        }
+        Button_Card transfer = CardPileManager.GetCardPile(oldPile).RemoveCard(oldIndex);
+        CardPileManager.GetCardPile(newPile).PlaceCard(transfer, newIndex);
+    }
+
+    [TargetRpc]
+    public void ArrangeShopPlaceholders(int amountNeeded)
+    {
+        CardPile_Shop shop = CardPileManager.GetCardPile(EPileType.Shop) as CardPile_Shop;
+        shop.ArrangePlaceholders(amountNeeded);
     }
 
     [TargetRpc]
@@ -128,7 +135,6 @@ public class PlayerNetwork : NetworkBehaviour
     [TargetRpc]
     public void StartShopPhase(int money, int diplomacyPoints, int diplomacyPointsNeeded, int timeToCombat)
     {
-        GetComponent<PlayerInput>().CanInteract = true;
         Button_Static_Refresh.Instance.ShowButton();
         m_TimeLeft = timeToCombat;
         StatText_Timer.Instance.ShowText();
@@ -144,7 +150,6 @@ public class PlayerNetwork : NetworkBehaviour
     [TargetRpc]
     public void StartCombatPhase(int playerHealth, int enemyHealth)
     {
-        GetComponent<PlayerInput>().CanInteract = false;
         Button_Static_Refresh.Instance.HideButton();
         StatText_Timer.Instance.HideText();
         StatText_PlayerHealth.Instance.ShowText();

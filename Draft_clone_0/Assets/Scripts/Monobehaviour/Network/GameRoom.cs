@@ -23,11 +23,11 @@ public class GameRoom : NetworkBehaviour, IGameManager
             players[i].ClientStartGame();
         }
 
-        m_IsCombat = true;
+        m_IsCombat = false;
         m_StartDelay = 1;
         m_AcummulatedTime = 0;
         m_CombatAttackInterval = 3;
-        m_ShopPhaseDuration = 10;
+        m_ShopPhaseDuration = 40;
 
         m_GameDataManager = new GameDataManager(players);
 

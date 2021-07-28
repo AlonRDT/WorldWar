@@ -47,11 +47,17 @@ public class GameDataManager
 
     internal void RequestRefreshShop(int playerIndex)
     {
-        m_Participants[playerIndex].RequestRefereshShop();
+        if (m_Participants[playerIndex].IsProcessingRequest == false)
+        {
+            m_Participants[playerIndex].RequestRefereshShop();
+        }
     }
 
     internal void RequestMoveCard(int playerIndex, EPileType oldPile, int oldIndex, EPileType newPile, int newIndex)
     {
-        m_Participants[playerIndex].RequestMoveCard(oldPile, oldIndex, newPile, newIndex);
+        if (m_Participants[playerIndex].IsProcessingRequest == false)
+        {
+            m_Participants[playerIndex].RequestMoveCard(oldPile, oldIndex, newPile, newIndex);
+        }
     }
 }

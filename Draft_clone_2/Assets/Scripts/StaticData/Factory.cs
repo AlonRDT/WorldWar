@@ -11,6 +11,7 @@ public class Factory : MonoBehaviour
     private void Start()
     {
         Instance = this;
+        //Debug.Log("factory");
     }
 
     public Button_Card GenerateCard(CardFinalData data)

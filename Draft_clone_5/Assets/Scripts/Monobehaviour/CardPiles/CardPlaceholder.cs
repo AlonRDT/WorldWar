@@ -7,7 +7,7 @@ public class CardPlaceholder : MonoBehaviour
     private BoxCollider2D m_Collider;
     public EPileType PileType { get; set; }
     public int IndexInPile { get; set; }
-    public Button_Card HeldCard { get; private set; }
+    private Button_Card m_HeldCard;
 
     // Start is called before the first frame update
     private void Awake()
@@ -27,10 +27,10 @@ public class CardPlaceholder : MonoBehaviour
 
     public void DestroyCard()
     {
-        if(HeldCard != null)
+        if(m_HeldCard != null)
         {
-            Destroy(HeldCard.gameObject);
-            HeldCard = null;
+            Destroy(m_HeldCard.gameObject);
+            m_HeldCard = null;
         }
     }
 
@@ -38,12 +38,20 @@ public class CardPlaceholder : MonoBehaviour
     {
         bool output = false;
 
-        if(HeldCard == null)
+        if(m_HeldCard == null)
         {
-            HeldCard = newButton;
+            m_HeldCard = newButton;
+            m_HeldCard.transform.position = transform.position;
             output = true;
         }
 
+        return output;
+    }
+
+    public Button_Card RemoveCard()
+    {
+        Button_Card output = m_HeldCard;
+        m_HeldCard = null;
         return output;
     }
 }

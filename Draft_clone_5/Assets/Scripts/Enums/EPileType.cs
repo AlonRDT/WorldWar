@@ -7,7 +7,8 @@ public enum EPileType
     Field,
     Sell,
     Shop,
-    BattleEnemy,
+    Hand,
+    Transition,
     BattlePlayer,
-    Hand
+    BattleEnemy
 }
